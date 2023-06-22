@@ -7,16 +7,17 @@ public abstract class Pessoa {
     private final String cpf;
     private String email;
     private String telefone;
+    private Genero genero;
 //    private Endereco endereco;
-//    private Genero genero;
     
-    public Pessoa(String nome, LocalDate dataNascimento, String rg, String cpf, String email, String telefone) {
+    public Pessoa(String nome, LocalDate dataNascimento, String rg, String cpf, String email, String telefone, Genero genero) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.rg = rg;
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
+        this.genero = genero;
     }
 
     // Getters //
@@ -44,6 +45,10 @@ public abstract class Pessoa {
         return telefone;
     }
 
+    public Genero getGenero() {
+        return genero;
+    }
+
     // Setters //
     public void setNome(String nome) {
         this.nome = nome;
@@ -59,5 +64,9 @@ public abstract class Pessoa {
     
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 }
