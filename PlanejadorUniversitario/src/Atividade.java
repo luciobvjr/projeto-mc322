@@ -11,7 +11,7 @@ public class Atividade {
 
     //Getters e Setters//
     
-    public String nome(){
+    public String getNome(){
         return this.nome;
     }
 
