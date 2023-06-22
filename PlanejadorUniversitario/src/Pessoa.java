@@ -8,9 +8,9 @@ public abstract class Pessoa {
     private String email;
     private String telefone;
     private Genero genero;
-//    private Endereco endereco;
+    private Endereco endereco;
     
-    public Pessoa(String nome, LocalDate dataNascimento, String rg, String cpf, String email, String telefone, Genero genero) {
+    public Pessoa(String nome, LocalDate dataNascimento, String rg, String cpf, String email, String telefone, Genero genero, Endereco endereco) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.rg = rg;
@@ -18,6 +18,7 @@ public abstract class Pessoa {
         this.email = email;
         this.telefone = telefone;
         this.genero = genero;
+        this.endereco = endereco;
     }
 
     // Getters //
@@ -49,6 +50,10 @@ public abstract class Pessoa {
         return genero;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
     // Setters //
     public void setNome(String nome) {
         this.nome = nome;
@@ -68,5 +73,9 @@ public abstract class Pessoa {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }
