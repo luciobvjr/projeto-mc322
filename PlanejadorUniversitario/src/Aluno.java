@@ -107,4 +107,26 @@ public abstract class Aluno extends Pessoa {
             creditos += gradeSemestral.get(i).getCreditos();
         return creditos;
     }
+
+    //Metodo para adcionar disciplina se fizer parte do curso
+        public void adicionarDisciplina(Disciplina disciplina) {
+        if (arvoreDoCurso.contains(disciplina)) {
+            gradeSemestral.add(disciplina);
+            creditosSemestrais += disciplina.getCreditos();
+        } 
+        else {
+            System.out.println("A disciplina não faz parte do curso do aluno.");
+        }
+    }
+
+    //Metodo para remover disciplina se ja foi adcionada
+    public void removerDisciplina(Disciplina disciplina) {
+        if (gradeSemestral.contains(disciplina)) {
+            gradeSemestral.remove(disciplina);
+            creditosSemestrais -= disciplina.getCreditos();
+        } 
+        else {
+            System.out.println("A disciplina não está na grade semestral do aluno.");
+        }
+    }
 }
