@@ -1,6 +1,7 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Aluno {
+public abstract class Aluno extends Pessoa {
     private final int ra;
     private double cp;
     private double cr;
@@ -11,8 +12,10 @@ public abstract class Aluno {
     private ArrayList<Disciplina> arvoreDoCurso;
     private ArrayList<Disciplina> gradeSemestral;
 
-    public Aluno(int ra, Curso curso, int anoDeIngresso,
+    public Aluno(String nome, LocalDate dataNascimento, String rg, String cpf, String email, String telefone,
+                 Genero genero, Endereco endereco, int ra, Curso curso, int anoDeIngresso,
                  ArrayList<Disciplina> arvoreDoCurso, ArrayList<Disciplina> gradeSemestral){
+        super(nome, dataNascimento, rg, cpf, email, telefone, genero, endereco);
         this.ra = ra;
         this.cp = 0.0; //cp inicial é zero, pois um novo aluno ainda não teve progressão no curso//
         this.cr = 1.0; //cr inicial é 1 e diminui conforme o aluno avança no curso//

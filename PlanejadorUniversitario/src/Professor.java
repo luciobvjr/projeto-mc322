@@ -1,11 +1,14 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Professor {
+public class Professor extends Pessoa {
     private ArrayList<Double> avaliacoesDeDesempenho = new ArrayList<Double>();//indica quantas vezes o professor foi avaliado para o calculo da nota//
     private double nota;
     private ArrayList<Disciplina> disciplinasMinistradas;
 
-    public Professor(ArrayList<Disciplina> disciplinasMinistradas){
+    public Professor(String nome, LocalDate dataNascimento, String rg, String cpf, String email, String telefone,
+                     Genero genero, Endereco endereco, ArrayList<Disciplina> disciplinasMinistradas) {
+        super(nome, dataNascimento, rg, cpf, email, telefone, genero, endereco);
         this.nota = 0.0;
         this.disciplinasMinistradas = disciplinasMinistradas;
     }
