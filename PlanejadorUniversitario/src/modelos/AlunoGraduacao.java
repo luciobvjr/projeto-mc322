@@ -1,9 +1,8 @@
 package modelos;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AlunoGraduacao extends Aluno implements Serializable {
+public class AlunoGraduacao extends Aluno {
     private ArrayList<Disciplina> disciplinasMatriculadas;
     private ArrayList<Disciplina> disciplinasConcluidas;
 
