@@ -1,7 +1,9 @@
+package modelos;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Aluno extends Pessoa {
+public abstract class Aluno extends Pessoa implements Serializable {
     private final int ra;
     private double cp;
     private double cr;

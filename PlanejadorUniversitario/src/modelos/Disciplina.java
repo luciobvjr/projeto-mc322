@@ -1,6 +1,8 @@
+package modelos;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Disciplina {
+public class Disciplina implements Serializable {
     private final int creditos;
     private final String codigo;
     private Professor professor;

@@ -1,7 +1,16 @@
 package telas;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import dados.FileManager;
+import modelos.AlunoGraduacao;
+import modelos.Curso;
+import modelos.Disciplina;
 
 public class TelaCadastro extends JFrame {
 
@@ -60,6 +69,41 @@ public class TelaCadastro extends JFrame {
 
         // Botão de cadastro
         JButton btnCadastrar = new JButton("Cadastrar");
+        
+        btnCadastrar.addActionListener(new ActionListener() {
+                Curso cursoTeste = new Curso(
+                        42, 
+                        new ArrayList<Disciplina>(), 
+                        40, 
+                        350, 
+                        40, 
+                        "Noturno", 
+                        10);
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        System.out.print(txtNome.getText());
+
+                        FileManager.salvarAluno(
+                                txtNome.getText(),
+                                null,
+                                txtRG.getText(), 
+                                txtCPF.getText(), 
+                                txtEmail.getText(), 
+                                txtTelefone.getText(),
+                                null,
+                                null,
+                                123456,
+                                cursoTeste,
+                                2023, 
+                                new ArrayList<Disciplina>(), 
+                                new ArrayList<Disciplina>());
+
+                        AlunoGraduacao alunogCarregado = FileManager.carregarAlunoGraduacao();
+                        String nome = alunogCarregado.getNome();
+                        System.out.print(nome);
+                }
+        });
 
         // Configurar os grupos horizontais
         GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();

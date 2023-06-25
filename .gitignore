@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# Serialized user files
+*.obj
+
 # Log file
 *.log
 
