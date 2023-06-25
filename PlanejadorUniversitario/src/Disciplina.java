@@ -60,10 +60,14 @@ public class Disciplina {
     }
 
     //Metodos da classe Disciplina//
-    public void recalculaMedia(){
+    public void recalculaMedia() throws ArrayIndexOutOfBondsException{
+        try {
         media = 0;
         for(int i = 0; i < this.atividades.size(); i++)
             media += this.atividades.get(i).getPeso() * this.atividades.get(i).getNota();
         this.setMedia(media/this.atividades.size());
+        } catch (ArrayIndexOutOfBondsException e) {
+            System.out.println("erro: " + e);
+        }
     }
 }

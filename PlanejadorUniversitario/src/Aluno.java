@@ -101,11 +101,15 @@ public abstract class Aluno extends Pessoa {
     }
 
     //Metodos da classe Aluno//
-    public int calculaCreditosSemestrais(ArrayList<Disciplina> gradeSemestral){
+    public int calculaCreditosSemestrais(ArrayList<Disciplina> gradeSemestral) throws ArrayIndexOutOfBondsException {
+        try {
         int creditos = 0;
         for(int i = 0; i < gradeSemestral.size(); i++)
             creditos += gradeSemestral.get(i).getCreditos();
-        return creditos;
+        return creditos;  
+        } catch(ArrayIndexOutOfBondsException e) {
+            System.out.println("erro: " + e);
+        }
     }
 
     //Metodo para adcionar disciplina se fizer parte do curso
