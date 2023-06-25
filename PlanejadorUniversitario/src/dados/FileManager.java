@@ -62,10 +62,6 @@ public class FileManager {
             AlunoGraduacao aluno = (AlunoGraduacao) objectIn.readObject();
             objectIn.close();
             System.out.println("Objeto carregado do arquivo com sucesso.");
-            System.out.println(aluno.getNome());
-            System.out.println(aluno.getCpf());
-            System.out.println(aluno.getRg());
-            System.out.println(aluno.getEmail());
             return aluno;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

@@ -82,8 +82,6 @@ public class TelaCadastro extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                        System.out.print(txtNome.getText());
-
                         FileManager.salvarAluno(
                                 txtNome.getText(),
                                 null,
@@ -98,10 +96,13 @@ public class TelaCadastro extends JFrame {
                                 2023, 
                                 new ArrayList<Disciplina>(), 
                                 new ArrayList<Disciplina>());
-
+                        
+                        //APENAS PARA TESTE, REMOVER POSTERIORMENTE//
                         AlunoGraduacao alunogCarregado = FileManager.carregarAlunoGraduacao();
-                        String nome = alunogCarregado.getNome();
-                        System.out.print(nome);
+                        System.out.println("Nome: " + alunogCarregado.getNome());
+                        System.out.println("CPF: " + alunogCarregado.getCpf());
+                        System.out.println("RG: " + alunogCarregado.getRg());
+                        System.out.println("Email: " + alunogCarregado.getEmail());
                 }
         });
 
