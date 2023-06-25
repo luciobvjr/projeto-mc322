@@ -1,5 +1,10 @@
+import javax.swing.*;
+import telas.TelaCadastro;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        SwingUtilities.invokeLater(() -> {
+            TelaCadastro.initialize();
+        });
     }
 }
