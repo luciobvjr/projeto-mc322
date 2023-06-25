@@ -10,7 +10,8 @@ public abstract class Pessoa {
     private Genero genero;
     private Endereco endereco;
     
-    public Pessoa(String nome, LocalDate dataNascimento, String rg, String cpf, String email, String telefone, Genero genero, Endereco endereco) {
+    public Pessoa(String nome, LocalDate dataNascimento, String rg, String cpf, String email,
+    String telefone, Genero genero, Endereco endereco) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.rg = rg;

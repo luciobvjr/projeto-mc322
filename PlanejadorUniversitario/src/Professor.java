@@ -35,14 +35,19 @@ public class Professor extends Pessoa {
     }
 
     //Metodos da classe Professor//
-    public void recalculaNota(){//Adiciona a avaliacao de desempenho e recalcula media//
+    public void recalculaNota() throws ArrayIndexOutOfBondsException {//Adiciona a avaliacao de desempenho e recalcula media//
+        try {
         nota = 0;
         for(int i = 0; i < this.avaliacoesDeDesempenho.size(); i++)
             nota += this.avaliacoesDeDesempenho.get(i);
-        this.setNota(nota/this.avaliacoesDeDesempenho.size());    
+        this.setNota(nota/this.avaliacoesDeDesempenho.size());
+        } catch (ArrayIndexOutOfBondsException e) {
+            System.out.println("erro: " + e);
+        }    
     }
 
-    public boolean addDisciplina(Disciplina disciplina){//adiciona uma nova disciplina a ser ministrada pelo prof//
+    public boolean addDisciplina(Disciplina disciplina) thows (ArrayIndexOutOfBondsException) {//adiciona uma nova disciplina a ser ministrada pelo prof//
+        try {
         for(int i = 0; i < this.disciplinasMinistradas.size(); i++){
             if(this.disciplinasMinistradas.get(i).equals(disciplina)){//caso em que a disciplina já é ministrada pelo professor//
                 System.out.println("O professor já ministra essa matéria!\n");
@@ -53,9 +58,13 @@ public class Professor extends Pessoa {
             }
         }
         return true;
+        } catch (ArrayIndexOutOfBondsException e) {
+            System.out.println("erro: " + e);
+        }
     }
 
-    public boolean removeDisciplina(Disciplina disciplina){//professor deixa de ministrar uma disciplina//
+    public boolean removeDisciplina(Disciplina disciplina) throws (ArrayIndexOutOfBondsException) {//professor deixa de ministrar uma disciplina//
+        try {
         for(int i = 0; i < this.disciplinasMinistradas.size(); i++){
             if(this.disciplinasMinistradas.get(i).equals(disciplina)){//caso em que a disciplina já é ministrada pelo professor//
                 this.disciplinasMinistradas.remove(disciplinasMinistradas.get(i));
@@ -66,6 +75,9 @@ public class Professor extends Pessoa {
             }
         }
         return true;
+        } catch (ArrayIndexOutOfBondsException e) {
+            System.out.println("erro: " + e);
+        }
     }
 
     public boolean avaliarProfessor(double nota){
