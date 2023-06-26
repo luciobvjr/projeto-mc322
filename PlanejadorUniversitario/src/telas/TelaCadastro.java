@@ -84,28 +84,24 @@ public class TelaCadastro extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                         Curso curso = cursoSelecionado(cbCurso.getSelectedItem().toString());
-                        FileManager.salvarAluno(
-                                txtNome.getText(),
-                                null,
+                        AlunoGraduacao aluno = new AlunoGraduacao(
+                                txtNome.getText(), 
+                                null, 
                                 txtRG.getText(), 
                                 txtCPF.getText(), 
                                 txtEmail.getText(), 
-                                txtTelefone.getText(),
-                                null,
-                                null,
-                                123456,
-                                curso,
-                                2023, 
+                                txtTelefone.getText(), 
+                                null, 
+                                null, 
+                                Integer.parseInt(txtRA.getText()), 
+                                curso, 
+                                Integer.parseInt(txtAnoDeIngresso.getText()), 
                                 curso.getArvoreIntegralizacao(), 
                                 new ArrayList<Disciplina>());
-                        
-                        //APENAS PARA TESTE, REMOVER POSTERIORMENTE//
-                        AlunoGraduacao alunogCarregado = FileManager.carregarAlunoGraduacao();
-                        System.out.println("Nome: " + alunogCarregado.getNome());
-                        System.out.println("CPF: " + alunogCarregado.getCpf());
-                        System.out.println("RG: " + alunogCarregado.getRg());
-                        System.out.println("Email: " + alunogCarregado.getEmail());
-                        System.out.println(alunogCarregado.getCurso().getCodigo());
+
+                        FileManager.salvarAluno(aluno);
+                        dispose();
+                        TelaDisciplinas.initialize(aluno);
                 }
         });
 
