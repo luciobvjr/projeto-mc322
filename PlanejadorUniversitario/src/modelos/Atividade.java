@@ -1,3 +1,4 @@
+package modelos;
 public class Atividade {
     private String nome;
     private double peso;

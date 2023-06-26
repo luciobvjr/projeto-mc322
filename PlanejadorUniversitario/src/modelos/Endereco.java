@@ -1,4 +1,8 @@
-public class Endereco {
+package modelos;
+
+import java.io.Serializable;
+
+public class Endereco implements Serializable {
     private String rua;
     private Integer numero;
     private String bairro;

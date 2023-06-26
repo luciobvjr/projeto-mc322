@@ -1,6 +1,8 @@
+package modelos;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Curso {
+public class Curso implements Serializable {
     private final int codigo;
     private ArrayList<Disciplina> arvoreIntegralizacao;
     //private Instituto instituto;
