@@ -13,6 +13,20 @@ public class Professor extends Pessoa {
         this.nota = 0.0;
     }
 
+    // classe molde para tratar a exceção
+    public class ExcecoesProfessor extends Exception {
+        public.ExcecoesProfessor{
+            super("Dados inseridos incorretamente, insira novamente.")
+        }
+    }
+
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    public class MinhaClasse {
+        ExcecoesProfessor e = new ExcecoesProfessor();
+
+        if (!this.nota instanceof double) throws e;
+    }
+
     //Getters e Setters//
     public double getNota(){
         return this.nota;

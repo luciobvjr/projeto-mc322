@@ -29,6 +29,34 @@ public abstract class Pessoa implements Serializable {
         this.endereco = endereco;
     }
 
+    // classe molde para tratar a exceção
+    public class ExcecoesPessoa extends Exception {
+        public.ExcecoesPessoa {
+            super("Dados inseridos incorretamente, insira novamente.")
+        }
+    }
+
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    public class MinhaClasse {
+        ExcecoesPessoa e = new ExcecoesPessoa();
+
+        if (!this.nome instanceof String) throws e;
+
+        if (!this.dataNascimento instanceof LocalDate) throws e;
+
+        if (!this.rg instanceof String) throws e;
+
+        if (!this.cpf instanceof String) throws e;
+
+        if (!this.email instanceof String) throws e;
+
+        if (!this.telefone instanceof String) throws e;
+
+        if (!this.genero instanceof Genero) throws e;
+
+        if (!this.endereco instanceof Endereco) throws e;
+    }
+
     // Getters //
     public String getNome() {
         return nome;

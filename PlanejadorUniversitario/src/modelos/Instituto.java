@@ -14,6 +14,24 @@ public class Instituto {
         this.endereco = endereco;
     }
 
+    // classe molde para tratar a exceção
+    public class ExcecoesInstituto extends Exception {
+        public.ExcecoesInstituto {
+            super("Dados inseridos incorretamente, insira novamente.")
+        }
+    }
+
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    public class MinhaClasse {
+        ExcecoesInstituto e = new ExcecoesInstituto();
+
+        if (!this.nome instanceof String) throws e;
+
+        if (!this.sigla instanceof String) throws e;
+
+        if (!this.enderco instanceof Endereco) throws e;
+    }
+
     //Getters//
     public String getNome(){
         return this.nome;

@@ -19,6 +19,30 @@ public class Endereco implements Serializable {
         this.pais = pais;
     }
 
+    // classe molde para tratar a exceção
+    public class ExcecoesEnderco extends Exception {
+        public.ExcecoesEndereco {
+            super("Dados inseridos incorretamente, insira novamente.")
+        }
+    }
+
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    public class MinhaClasse {
+        ExcecoesEndereco e = new ExcecoesEndereco();
+
+        if (!this.rua instanceof String) throws e;
+
+        if (!this.numero instanceof Integer) throws e;
+
+        if (!this.bairro instanceof String) throws e;
+
+        if (!this.cidade instanceof String) throws e;
+
+        if (!this.estado instanceof String) throws e;
+
+        if (!this.pais instanceof String) throws e;
+    }
+
     // Getters //
     public String getRua() {
         return rua;
