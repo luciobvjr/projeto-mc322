@@ -67,14 +67,10 @@ public class Disciplina implements Serializable {
     }
 
     //Metodos da classe Disciplina//
-    public void recalculaMedia() throws ArrayIndexOutOfBondsException{
-        try {
+    public void recalculaMedia(){
         media = 0;
         for(int i = 0; i < this.atividades.size(); i++)
             media += this.atividades.get(i).getPeso() * this.atividades.get(i).getNota();
         this.setMedia(media/this.atividades.size());
-        } catch (ArrayIndexOutOfBondsException e) {
-            System.out.println("erro: " + e);
-        }
     }
 }

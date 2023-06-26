@@ -11,14 +11,8 @@ public abstract class Pessoa implements Serializable {
     private String telefone;
     private Genero genero;
     private Endereco endereco;
-<<<<<<< HEAD:PlanejadorUniversitario/src/Pessoa.java
-    
-    public Pessoa(String nome, LocalDate dataNascimento, String rg, String cpf, String email,
-    String telefone, Genero genero, Endereco endereco) {
-=======
 
     public Pessoa(String nome, LocalDate dataNascimento, String rg, String cpf, String email, String telefone, Genero genero, Endereco endereco) {
->>>>>>> 782945c06bbc62117abb2a47522fb24912d40e72:PlanejadorUniversitario/src/modelos/Pessoa.java
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.rg = rg;
