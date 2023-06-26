@@ -3,24 +3,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Disciplina implements Serializable {
+    private final String nome;
     private final int creditos;
     private final String codigo;
     private Professor professor;
     //private Instituto instituto;
-    private ArrayList<Atividade> atividades;
+    private ArrayList<Atividade> atividades = new ArrayList<Atividade>(); //ADICIONAR METODO PARA ADICIONAR ATIVIDADES
     private int numeroFaltas;
     private double media;
 
-    public Disciplina(int creditos,String codigo, Professor professor, ArrayList<Atividade> atividades){
+    public Disciplina(String nome,int creditos,String codigo, Professor professor){
+        this.nome = nome;
         this.creditos = creditos;
         this.codigo = codigo;
         this.professor = professor;
-        this.atividades = atividades;
         this.numeroFaltas = 0;
         this.media = 0.0;
     }
 
     //Getters e Setters//
+    public String getNome(){
+        return this.nome;
+    }
+
     public int getCreditos(){
         return this.creditos;
     }
