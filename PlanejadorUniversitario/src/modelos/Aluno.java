@@ -28,6 +28,29 @@ public abstract class Aluno extends Pessoa {
         this.creditosSemestrais = calculaCreditosSemestrais(gradeSemestral);
     }
 
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    public class ExcecoesALuno extends Exception {
+        public.ExcecoesALuno {
+            super("Dados inseridos incorretamente, insira novamente.")
+        }
+    }
+
+    public class MinhaClasse {
+        ExcecoesALuno e = new ExcecoesALuno();
+
+        if (!this.ra instanceof int) throws e;
+
+        if (!this.cp instanceof double) throws e;
+
+        if (!this.cr instanceof double) throws e;
+
+        if (!this.anoDeIngresso instanceof int) throws e;
+
+        if (!this.creditosPermitidos instanceof int) throws e;
+
+        if (!this.creditosSemestrais instanceof int) throws e;
+    }
+
     //GETTERS E SETTERS//
     public int getRA(){
         return this.ra;
