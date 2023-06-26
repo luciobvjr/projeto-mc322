@@ -3,7 +3,6 @@ package telas;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -15,10 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import dados.DataBase;
 import modelos.AlunoGraduacao;
-import modelos.Atividade;
 import modelos.Disciplina;
-import modelos.Professor;
 
 public class TelaDisciplinas extends JFrame {
     AlunoGraduacao alunoGraduacao;
@@ -64,14 +62,7 @@ public class TelaDisciplinas extends JFrame {
         btnAddDisciplina.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // USADO PARA TESTE, REMOVER DEPOIS//
-                Professor professor = new Professor("Marcos Medeiros Raimundo", null, null, null, null, null, null,
-                        null, null);
-                Disciplina disciplina = new Disciplina(4, "MC322", professor, new ArrayList<Atividade>());
-                alunoGraduacao.getArvoreDoCurso().add(disciplina);
-                alunoGraduacao.adicionarDisciplina(disciplina);
-
-                listaDisciplinasPanel.add(new DisciplinaCelula(disciplina));
+                listaDisciplinasPanel.add(new DisciplinaCelula(DataBase.getInstitutos().get(0).getDisciplinasOferecidas().get(0)));
                 revalidate();
                 repaint();
             }
