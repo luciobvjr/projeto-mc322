@@ -4,19 +4,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import dados.DataBase;
 import modelos.AlunoGraduacao;
 import modelos.Disciplina;
 
@@ -60,17 +55,6 @@ public class TelaDisciplinas extends JFrame {
         listaDisciplinasPanel = new JPanel();
         listaDisciplinasPanel.setLayout(new WrapLayout());
 
-        JButton btnAddDisciplina = new JButton("Adicionar");
-        btnAddDisciplina.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listaDisciplinasPanel
-                        .add(new DisciplinaCelula(DataBase.getInstitutos().get(0).getDisciplinasOferecidas().get(0)));
-                revalidate();
-                repaint();
-            }
-        });
-
         listaDisciplinasScroll = new JScrollPane(listaDisciplinasPanel);
         listaDisciplinasScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         listaDisciplinasScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -98,15 +82,15 @@ public class TelaDisciplinas extends JFrame {
                 JToggleButton selectedButton = (JToggleButton) e.getSource();
                 if (selectedButton.equals(btnMatriculadas)) {
                     for (Disciplina disciplina : alunoGraduacao.getDisciplinasMatriculadas()) {
-                        listaDisciplinasPanel.add(new DisciplinaCelula(disciplina));
+                        listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
                     }
                 } else if (selectedButton.equals(btnDisponiveis)) {
                     for (Disciplina disciplina : alunoGraduacao.getArvoreDoCurso()) {
-                        listaDisciplinasPanel.add(new DisciplinaCelula(disciplina));
+                        listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
                     }
                 } else if (selectedButton.equals(btnConcluidas)) {
                     for (Disciplina disciplina : alunoGraduacao.getDisciplinasConcluidas()) {
-                        listaDisciplinasPanel.add(new DisciplinaCelula(disciplina));
+                        listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
                     }
                 }
                 revalidate();
@@ -120,7 +104,6 @@ public class TelaDisciplinas extends JFrame {
 
         // Configurar Panels
         panelHeaderEsquerdo.add(lblTitulo);
-        panelHeaderDireito.add(btnAddDisciplina);
         panelHeader.add(panelHeaderEsquerdo, BorderLayout.WEST);
         panelHeader.add(controlPanel, BorderLayout.CENTER);
         panelHeader.add(panelHeaderDireito, BorderLayout.EAST);
@@ -131,69 +114,6 @@ public class TelaDisciplinas extends JFrame {
 
         // Centralizar o JFrame na tela
         setLocationRelativeTo(null);
-    }
-
-    // Célula da disciplina
-    private static class DisciplinaCelula extends JPanel {
-        private JLabel lblCodigo;
-        private JLabel lblProfessor;
-        private JLabel lblCreditos;
-        private JLabel lblFaltas;
-
-        public DisciplinaCelula(Disciplina disciplina) {
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-            lblCodigo = new JLabel();
-            Font boldFont = new Font(lblCodigo.getFont().getName(), Font.BOLD, 18);
-            lblCodigo.setFont(boldFont);
-            lblProfessor = new JLabel();
-            lblCreditos = new JLabel();
-            lblFaltas = new JLabel();
-
-            add(lblCodigo);
-            add(lblProfessor);
-            add(lblCreditos);
-            add(lblFaltas);
-
-            setOpaque(true);
-
-            int padding = 10;
-            Border paddingBorder = new EmptyBorder(padding, padding, padding, padding);
-            Border roundedBorder = new RoundBorder(15, Color.BLACK);
-            Border border = BorderFactory.createCompoundBorder(paddingBorder, roundedBorder);
-            setBorder(border);
-
-            lblCodigo.setText(disciplina.getCodigo());
-            lblProfessor.setText("Prof: " + disciplina.getProfessor().getNome());
-            lblCreditos.setText(disciplina.getCreditos() + " créditos");
-            lblFaltas.setText("Faltas: " + disciplina.getNumeroFaltas());
-        }
-
-        public class RoundBorder implements Border {
-            private int radius;
-            private Color color;
-
-            public RoundBorder(int radius, Color color) {
-                this.radius = radius;
-                this.color = color;
-            }
-
-            @Override
-            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                g.setColor(color);
-                g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
-            }
-
-            @Override
-            public Insets getBorderInsets(Component c) {
-                return new Insets(radius, radius, radius, radius);
-            }
-
-            @Override
-            public boolean isBorderOpaque() {
-                return true;
-            }
-        }
     }
 
     public static void initialize(AlunoGraduacao alunoGraduacao) {
