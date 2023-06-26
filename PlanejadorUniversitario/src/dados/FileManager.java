@@ -50,6 +50,8 @@ public class FileManager {
             System.out.println("Objeto salvo com sucesso.");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (java.io.FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado.");
         }
     }
 
@@ -65,6 +67,8 @@ public class FileManager {
             return aluno;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (java.io.FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado.");
         }
         return null;
     }
