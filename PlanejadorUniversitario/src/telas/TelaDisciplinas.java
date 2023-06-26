@@ -5,13 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import modelos.AlunoGraduacao;
@@ -22,8 +20,7 @@ import modelos.Professor;
 public class TelaDisciplinas extends JFrame {
     AlunoGraduacao alunoGraduacao;
 
-    private DefaultListModel<String> listModel;
-    private JList<String> list;
+    private JPanel itemListPanel;
 
     public TelaDisciplinas(AlunoGraduacao alunoGraduacao) {
         super("Minhas Disciplinas");
@@ -55,6 +52,10 @@ public class TelaDisciplinas extends JFrame {
         JPanel panelHeaderDireito = new JPanel();
         panelHeaderDireito.setLayout(new FlowLayout(FlowLayout.LEFT));
 
+        // lista de disciplinas
+        itemListPanel = new JPanel();
+        itemListPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
         JButton btnAddDisciplina = new JButton("Adicionar");
         btnAddDisciplina.addActionListener(new ActionListener() {
             @Override
@@ -66,21 +67,14 @@ public class TelaDisciplinas extends JFrame {
                 alunoGraduacao.getArvoreDoCurso().add(disciplina);
                 alunoGraduacao.adicionarDisciplina(disciplina);
 
-                listModel.addElement(disciplina.getCodigo());
-                System.out.println(alunoGraduacao.getDisciplinasMatriculadas().size());
+                itemListPanel.add(new DisciplinaCelula(disciplina));
+                revalidate();
                 repaint();
             }
         });
 
-        // lista de disciplinas
-        listModel = new DefaultListModel<>();
-        list = new JList<>(listModel);
-        list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        list.setVisibleRowCount(1);
-
-        JPanel listaDisciplinasPanel = new JPanel();
-        listaDisciplinasPanel.setLayout(new FlowLayout());
-
+        
+        
 
         // Configurar Panels
         panelHeaderEsquerdo.add(lblTitulo);
@@ -89,11 +83,44 @@ public class TelaDisciplinas extends JFrame {
         panelHeader.add(panelHeaderDireito, BorderLayout.EAST);
 
         panel.add(panelHeader, BorderLayout.NORTH);
-        panel.add(new JScrollPane(list), BorderLayout.CENTER);
+        panel.add(itemListPanel, BorderLayout.CENTER);
         add(panel);
 
         // Centralizar o JFrame na tela
         setLocationRelativeTo(null);
+    }
+
+    private static class DisciplinaCelula extends JPanel {
+        private JLabel lblCodigo;
+        private JLabel lblProfessor;
+        private JLabel lblCreditos;
+        private JLabel lblFaltas;
+
+        public DisciplinaCelula(Disciplina disciplina) {
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+            lblCodigo = new JLabel();
+            Font boldFont = new Font(lblCodigo.getFont().getName(), Font.BOLD, 18);
+            lblCodigo.setFont(boldFont);
+            lblProfessor = new JLabel();
+            lblCreditos = new JLabel();
+            lblFaltas = new JLabel();
+
+            add(lblCodigo);
+            add(lblProfessor);
+            add(lblCreditos);
+            add(lblFaltas);
+
+            setOpaque(true);
+
+            int padding = 10;
+            setBorder(new EmptyBorder(padding, padding, padding, padding));
+
+            lblCodigo.setText(disciplina.getCodigo());
+            lblProfessor.setText("Prof: " + disciplina.getProfessor().getNome());
+            lblCreditos.setText(disciplina.getCreditos() + " créditos");
+            lblFaltas.setText("Faltas: " + disciplina.getNumeroFaltas());
+        }
     }
 
     public static void initialize(AlunoGraduacao alunoGraduacao) {

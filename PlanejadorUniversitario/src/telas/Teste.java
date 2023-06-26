@@ -7,38 +7,43 @@ import java.awt.event.ActionListener;
 
 public class Teste extends JFrame {
 
-    private DefaultListModel<String> listModel;
-    private JList<String> list;
-    private JTextField textField;
+    private JPanel contentPane;
     private JButton addButton;
+    private JPanel itemListPanel;
 
     public Teste() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Update Vertical List Example");
+        setTitle("Flow Layout List Example");
+        setPreferredSize(new Dimension(300, 200));
 
-        listModel = new DefaultListModel<>();
-        list = new JList<>(listModel);
+        contentPane = new JPanel();
+        contentPane.setLayout(new BorderLayout());
 
-        textField = new JTextField(20);
-        addButton = new JButton("Add");
+        addButton = new JButton("Adicionar Item");
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String item = textField.getText();
-                listModel.addElement(item);
-                textField.setText("");
+                addItem();
             }
         });
+        contentPane.add(addButton, BorderLayout.NORTH);
 
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(new JScrollPane(list), BorderLayout.CENTER);
-        panel.add(textField, BorderLayout.WEST);
-        panel.add(addButton, BorderLayout.EAST);
+        itemListPanel = new JPanel();
+        itemListPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        contentPane.add(itemListPanel, BorderLayout.CENTER);
 
-        getContentPane().add(panel);
-
+        setContentPane(contentPane);
         pack();
         setLocationRelativeTo(null);
+    }
+
+    private void addItem() {
+        JLabel newItem = new JLabel("Novo Item");
+        newItem.setBorder(BorderFactory.createLineBorder(Color.black));
+        itemListPanel.add(newItem);
+
+        revalidate();
+        repaint();
     }
 
     public static void main(String[] args) {
