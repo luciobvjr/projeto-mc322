@@ -28,13 +28,14 @@ public abstract class Aluno extends Pessoa {
         this.creditosSemestrais = calculaCreditosSemestrais(gradeSemestral);
     }
 
-    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    // classe molde para tratar a exceção
     public class ExcecoesALuno extends Exception {
         public.ExcecoesALuno {
             super("Dados inseridos incorretamente, insira novamente.")
         }
     }
 
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
     public class MinhaClasse {
         ExcecoesALuno e = new ExcecoesALuno();
 
