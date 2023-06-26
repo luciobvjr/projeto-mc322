@@ -83,6 +83,7 @@ public class TelaCadastro extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                        Curso curso = cursoSelecionado(cbCurso.getSelectedItem().toString());
                         FileManager.salvarAluno(
                                 txtNome.getText(),
                                 null,
@@ -93,9 +94,9 @@ public class TelaCadastro extends JFrame {
                                 null,
                                 null,
                                 123456,
-                                cursoSelecionado(cbCurso.getSelectedItem().toString()),
+                                curso,
                                 2023, 
-                                new ArrayList<Disciplina>(), 
+                                curso.getArvoreIntegralizacao(), 
                                 new ArrayList<Disciplina>());
                         
                         //APENAS PARA TESTE, REMOVER POSTERIORMENTE//
