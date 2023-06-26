@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import dados.DataBase;
 import dados.FileManager;
 import modelos.AlunoGraduacao;
 import modelos.Curso;
@@ -62,8 +63,11 @@ public class TelaCadastro extends JFrame {
         JTextField txtRA = new JTextField(6);
 
         JLabel lblCurso = new JLabel("Curso:");
-        JTextField txtCurso = new JTextField(20);
-
+        ArrayList<String> cursosStrings = new ArrayList<>();
+        for (Curso curso: DataBase.getCursos()) {
+                cursosStrings.add(Integer.toString(curso.getCodigo()));
+        }
+        JComboBox<String> cbCurso = new JComboBox<>(cursosStrings.toArray(new String[0]));
         JLabel lblAnoDeIngresso = new JLabel("Ano de ingresso:");
         JTextField txtAnoDeIngresso = new JTextField(4);
 
@@ -71,14 +75,11 @@ public class TelaCadastro extends JFrame {
         JButton btnCadastrar = new JButton("Cadastrar");
         
         btnCadastrar.addActionListener(new ActionListener() {
-                Curso cursoTeste = new Curso(
-                        42, 
-                        new ArrayList<Disciplina>(), 
-                        40, 
-                        350, 
-                        40, 
-                        "Noturno", 
-                        10);
+                private Curso cursoSelecionado(String codigo) {
+                        int codigoInt = Integer.parseInt(codigo);
+                        Curso curso = DataBase.getCursoComCodigo(codigoInt);
+                        return curso;
+                }
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -92,7 +93,7 @@ public class TelaCadastro extends JFrame {
                                 null,
                                 null,
                                 123456,
-                                cursoTeste,
+                                cursoSelecionado(cbCurso.getSelectedItem().toString()),
                                 2023, 
                                 new ArrayList<Disciplina>(), 
                                 new ArrayList<Disciplina>());
@@ -103,6 +104,7 @@ public class TelaCadastro extends JFrame {
                         System.out.println("CPF: " + alunogCarregado.getCpf());
                         System.out.println("RG: " + alunogCarregado.getRg());
                         System.out.println("Email: " + alunogCarregado.getEmail());
+                        System.out.println(alunogCarregado.getCurso().getCodigo());
                 }
         });
 
@@ -127,7 +129,7 @@ public class TelaCadastro extends JFrame {
                 .addComponent(txtEmail)
                 .addComponent(txtTelefone)
                 .addComponent(txtRA)
-                .addComponent(txtCurso)
+                .addComponent(cbCurso)
                 .addComponent(txtAnoDeIngresso));
                 
         layout.setHorizontalGroup(hGroup);
@@ -158,7 +160,7 @@ public class TelaCadastro extends JFrame {
                 .addComponent(txtRA));
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                 .addComponent(lblCurso)
-                .addComponent(txtCurso));
+                .addComponent(cbCurso));
         vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                 .addComponent(lblAnoDeIngresso)
                 .addComponent(txtAnoDeIngresso));
