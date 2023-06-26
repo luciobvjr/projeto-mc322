@@ -1,24 +1,30 @@
 package telas;
+
 import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class Teste extends JFrame {
 
     public Teste() {
-        super("Enum ComboBox Example");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Selector Example");
 
-        // Definição do enum
-        enum Color {
-            RED, GREEN, BLUE
-        }
+        // Create an ArrayList with the options
+        ArrayList<String> options = new ArrayList<>();
+        options.add("Option 1");
+        options.add("Option 2");
+        options.add("Option 3");
+        options.add("Option 4");
 
-        // Criação do JComboBox com os valores do enum
-        JComboBox<Color> comboBox = new JComboBox<>(Color.values());
+        // Create a JComboBox and populate it with the options
+        JComboBox<String> comboBox = new JComboBox<>(options.toArray(new String[0]));
+        
+        // Set the preferred size of the JComboBox
+        comboBox.setPreferredSize(new Dimension(200, 30));
 
-        // Adição do JComboBox ao painel
-        JPanel panel = new JPanel();
-        panel.add(comboBox);
-        add(panel);
+        // Add the JComboBox to the JFrame
+        add(comboBox, BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);

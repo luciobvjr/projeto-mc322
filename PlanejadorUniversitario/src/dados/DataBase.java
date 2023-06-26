@@ -192,4 +192,13 @@ public class DataBase {
     public static ArrayList<Curso> getCursos(){
         return cursos;
     }
+
+    public static Curso getCursoComCodigo(int codigo) {
+        for (Curso curso : getCursos()) {
+            if (curso.getCodigo() == codigo) {
+                return curso;
+            }
+        }
+        return null;
+    }
 }
