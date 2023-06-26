@@ -6,11 +6,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -27,7 +29,7 @@ public class TelaDisciplinas extends JFrame {
     public TelaDisciplinas(AlunoGraduacao alunoGraduacao) {
         super("Minhas Disciplinas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(540, 550);
+        setSize(700, 550);
 
         // Painel principal
         JPanel panel = new JPanel();
@@ -62,7 +64,8 @@ public class TelaDisciplinas extends JFrame {
         btnAddDisciplina.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                listaDisciplinasPanel.add(new DisciplinaCelula(DataBase.getInstitutos().get(0).getDisciplinasOferecidas().get(0)));
+                listaDisciplinasPanel
+                        .add(new DisciplinaCelula(DataBase.getInstitutos().get(0).getDisciplinasOferecidas().get(0)));
                 revalidate();
                 repaint();
             }
@@ -72,10 +75,54 @@ public class TelaDisciplinas extends JFrame {
         listaDisciplinasScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         listaDisciplinasScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+        // Botões do segmented control
+        JToggleButton btnMatriculadas = new JToggleButton("Matriculadas");
+        JToggleButton btnDisponiveis = new JToggleButton("Disponíveis");
+        JToggleButton btnConcluidas = new JToggleButton("Concluídas");
+
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(btnMatriculadas);
+        buttonGroup.add(btnDisponiveis);
+        buttonGroup.add(btnConcluidas);
+
+        JPanel controlPanel = new JPanel();
+        controlPanel.add(btnMatriculadas);
+        controlPanel.add(btnDisponiveis);
+        controlPanel.add(btnConcluidas);
+
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                listaDisciplinasPanel.removeAll();
+
+                JToggleButton selectedButton = (JToggleButton) e.getSource();
+                if (selectedButton.equals(btnMatriculadas)) {
+                    for (Disciplina disciplina : alunoGraduacao.getDisciplinasMatriculadas()) {
+                        listaDisciplinasPanel.add(new DisciplinaCelula(disciplina));
+                    }
+                } else if (selectedButton.equals(btnDisponiveis)) {
+                    for (Disciplina disciplina : alunoGraduacao.getArvoreDoCurso()) {
+                        listaDisciplinasPanel.add(new DisciplinaCelula(disciplina));
+                    }
+                } else if (selectedButton.equals(btnConcluidas)) {
+                    for (Disciplina disciplina : alunoGraduacao.getDisciplinasConcluidas()) {
+                        listaDisciplinasPanel.add(new DisciplinaCelula(disciplina));
+                    }
+                }
+                revalidate();
+                repaint();
+            }
+        };
+
+        btnMatriculadas.addActionListener(actionListener);
+        btnDisponiveis.addActionListener(actionListener);
+        btnConcluidas.addActionListener(actionListener);
+
         // Configurar Panels
         panelHeaderEsquerdo.add(lblTitulo);
         panelHeaderDireito.add(btnAddDisciplina);
         panelHeader.add(panelHeaderEsquerdo, BorderLayout.WEST);
+        panelHeader.add(controlPanel, BorderLayout.CENTER);
         panelHeader.add(panelHeaderDireito, BorderLayout.EAST);
 
         panel.add(panelHeader, BorderLayout.NORTH);
@@ -86,6 +133,7 @@ public class TelaDisciplinas extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    // Célula da disciplina
     private static class DisciplinaCelula extends JPanel {
         private JLabel lblCodigo;
         private JLabel lblProfessor;

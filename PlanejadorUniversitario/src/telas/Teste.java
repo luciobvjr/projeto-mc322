@@ -3,32 +3,28 @@ package telas;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Teste extends JFrame {
 
     public Teste() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Wrap Layout Example");
-        setPreferredSize(new Dimension(300, 200));
+        setTitle("Selector Example");
 
-        // Create a panel with WrapLayout
-        JPanel panel = new JPanel(new WrapLayout());
+        // Create an ArrayList with the options
+        ArrayList<String> options = new ArrayList<>();
+        options.add("Option 1");
+        options.add("Option 2");
+        options.add("Option 3");
+        options.add("Option 4");
 
-        // Create a lot of JLabels
-        for (int i = 1; i <= 20; i++) {
-            JLabel label = new JLabel("Label " + i);
-            panel.add(label);
-        }
+        // Create a JComboBox and populate it with the options
+        JComboBox<String> comboBox = new JComboBox<>(options.toArray(new String[0]));
+        
+        // Set the preferred size of the JComboBox
+        comboBox.setPreferredSize(new Dimension(200, 30));
 
-        // Create a JScrollPane and set the JPanel as its viewport
-        JScrollPane scrollPane = new JScrollPane(panel);
-
-        // Set the preferred size of the JScrollPane
-        scrollPane.setPreferredSize(new Dimension(280, 160));
-
-        // Set the JScrollPane as the content pane of the frame
-        setContentPane(scrollPane);
+        // Add the JComboBox to the JFrame
+        add(comboBox, BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
@@ -39,52 +35,5 @@ public class Teste extends JFrame {
             Teste example = new Teste();
             example.setVisible(true);
         });
-    }
-}
-
-class WrapLayout extends FlowLayout {
-
-    private List<Dimension> rowSizes;
-
-    public WrapLayout() {
-        rowSizes = new ArrayList<>();
-    }
-
-    @Override
-    public void layoutContainer(Container parent) {
-        super.layoutContainer(parent);
-
-        int width = parent.getWidth();
-
-        int x = 0;
-        int y = 0;
-        int rowHeight = 0;
-
-        rowSizes.clear();
-
-        for (int i = 0; i < parent.getComponentCount(); i++) {
-            Component component = parent.getComponent(i);
-            Dimension size = component.getPreferredSize();
-
-            if (x == 0 || x + size.width > width) {
-                x = 0;
-                y += rowHeight;
-                rowHeight = 0;
-                rowSizes.add(size);
-            } else {
-                rowHeight = Math.max(rowHeight, size.height);
-            }
-
-            component.setBounds(x, y, size.width, size.height);
-            x += size.width;
-        }
-
-        y += rowHeight;
-
-        Dimension preferredSize = new Dimension(width, y);
-        Dimension minimumSize = new Dimension(width, y);
-
-        parent.setPreferredSize(preferredSize);
-        parent.setMinimumSize(minimumSize);
     }
 }
