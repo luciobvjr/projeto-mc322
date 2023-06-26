@@ -10,6 +10,24 @@ public class Atividade {
         this.nota = nota;
     }
 
+    // classe molde para tratar a exceção
+    public class ExcecoesAtividade extends Exception {
+        public.ExcecoesAtividade {
+            super("Dados inseridos incorretamente, insira novamente.")
+        }
+    }
+
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    public class MinhaClasse {
+        ExcecoesAtividade e = new ExcecoesAtividade();
+
+        if (!this.nome instanceof String) throws e;
+
+        if (!this.peso instanceof double) throws e;
+
+        if (!this.nota instanceof double) throws e;
+    }
+
     //Getters e Setters//
     
     public String getNome(){

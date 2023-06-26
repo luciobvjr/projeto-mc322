@@ -21,6 +21,28 @@ public class Disciplina implements Serializable {
         this.media = 0.0;
     }
 
+    // classe molde para tratar a exceção
+    public class ExcecoesDisciplina extends Exception {
+        public.ExcecoesDisciplina {
+            super("Dados inseridos incorretamente, insira novamente.")
+        }
+    }
+
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    public class MinhaClasse {
+        ExcecoesDisciplina e = new ExcecoesDisciplina();
+
+        if (!this.nome instanceof String) throws e;
+
+        if (!this.creditos instanceof int) throws e;
+
+        if (!this.codigo instanceof String) throws e;
+
+        if (!this.numeroFaltas instanceof int) throws e;
+
+        if (!this.media instanceof double) throws e;
+    }
+
     //Getters e Setters//
     public String getNome(){
         return this.nome;

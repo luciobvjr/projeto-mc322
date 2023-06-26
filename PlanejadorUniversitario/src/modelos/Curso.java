@@ -22,6 +22,30 @@ public class Curso implements Serializable {
         this.semestres = semestres;
     }
 
+    // classe molde para tratar a exceção
+    public class ExcecoesCurso extends Exception {
+        public.ExcecoesCurso {
+            super("Dados inseridos incorretamente, insira novamente.")
+        }
+    }
+
+    // classe que trata a exceção para caso os dados do aluno sejam inseridos incorretamente;
+    public class MinhaClasse {
+        ExcecoesALuno e = new ExcecoesCurso();
+
+        if (!this.codigo instanceof int) throws e;
+
+        if (!this.creditosPermitidos instanceof int) throws e;
+
+        if (!this.creditosObrigatorios instanceof int) throws e;
+
+        if (!this.creditosEletivos instanceof int) throws e;
+
+        if (!this.turno instanceof String) throws e;
+
+        if (!this.semestres instanceof int) throws e;
+    }
+
     //Getters e Setters//
     
     public int getCodigo(){
