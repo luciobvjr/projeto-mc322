@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import dados.FileManager;
 import modelos.AlunoGraduacao;
 import modelos.Disciplina;
 
@@ -47,10 +48,6 @@ public class TelaDisciplinas extends JFrame {
         JPanel panelAddDisciplina = new JPanel();
         panelAddDisciplina.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        // Botao add disciplina
-        JPanel panelHeaderDireito = new JPanel();
-        panelHeaderDireito.setLayout(new FlowLayout(FlowLayout.LEFT));
-
         // lista de disciplinas
         listaDisciplinasPanel = new JPanel();
         listaDisciplinasPanel.setLayout(new WrapLayout());
@@ -58,6 +55,10 @@ public class TelaDisciplinas extends JFrame {
         listaDisciplinasScroll = new JScrollPane(listaDisciplinasPanel);
         listaDisciplinasScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         listaDisciplinasScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        for (Disciplina disciplina : alunoGraduacao.getDisciplinasMatriculadas()) {
+            listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
+        }
 
         // Botões do segmented control
         JToggleButton btnMatriculadas = new JToggleButton("Matriculadas");
@@ -86,7 +87,15 @@ public class TelaDisciplinas extends JFrame {
                     }
                 } else if (selectedButton.equals(btnDisponiveis)) {
                     for (Disciplina disciplina : alunoGraduacao.getArvoreDoCurso()) {
-                        listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
+                        ActionListener matricularDisciplina = new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                alunoGraduacao.adicionarDisciplina(disciplina);
+                                alunoGraduacao.getArvoreDoCurso().remove(disciplina);
+                                FileManager.salvarAluno(alunoGraduacao);
+                            }
+                        };
+                        listaDisciplinasPanel.add(new CelulaDisciplinaDisponivel(disciplina, matricularDisciplina));
                     }
                 } else if (selectedButton.equals(btnConcluidas)) {
                     for (Disciplina disciplina : alunoGraduacao.getDisciplinasConcluidas()) {
@@ -106,7 +115,6 @@ public class TelaDisciplinas extends JFrame {
         panelHeaderEsquerdo.add(lblTitulo);
         panelHeader.add(panelHeaderEsquerdo, BorderLayout.WEST);
         panelHeader.add(controlPanel, BorderLayout.CENTER);
-        panelHeader.add(panelHeaderDireito, BorderLayout.EAST);
 
         panel.add(panelHeader, BorderLayout.NORTH);
         panel.add(listaDisciplinasScroll, BorderLayout.CENTER);
