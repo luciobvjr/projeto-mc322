@@ -1,24 +1,41 @@
 package telas;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Teste extends JFrame {
 
+    private DefaultListModel<String> listModel;
+    private JList<String> list;
+    private JTextField textField;
+    private JButton addButton;
+
     public Teste() {
-        super("Enum ComboBox Example");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Update Vertical List Example");
 
-        // Definição do enum
-        enum Color {
-            RED, GREEN, BLUE
-        }
+        listModel = new DefaultListModel<>();
+        list = new JList<>(listModel);
 
-        // Criação do JComboBox com os valores do enum
-        JComboBox<Color> comboBox = new JComboBox<>(Color.values());
+        textField = new JTextField(20);
+        addButton = new JButton("Add");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String item = textField.getText();
+                listModel.addElement(item);
+                textField.setText("");
+            }
+        });
 
-        // Adição do JComboBox ao painel
-        JPanel panel = new JPanel();
-        panel.add(comboBox);
-        add(panel);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(new JScrollPane(list), BorderLayout.CENTER);
+        panel.add(textField, BorderLayout.WEST);
+        panel.add(addButton, BorderLayout.EAST);
+
+        getContentPane().add(panel);
 
         pack();
         setLocationRelativeTo(null);
