@@ -5,11 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import modelos.AlunoGraduacao;
@@ -20,12 +23,13 @@ import modelos.Professor;
 public class TelaDisciplinas extends JFrame {
     AlunoGraduacao alunoGraduacao;
 
-    private JPanel itemListPanel;
+    private JPanel listaDisciplinasPanel;
+    private JScrollPane listaDisciplinasScroll;
 
     public TelaDisciplinas(AlunoGraduacao alunoGraduacao) {
         super("Minhas Disciplinas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(450, 400);
+        setSize(540, 550);
 
         // Painel principal
         JPanel panel = new JPanel();
@@ -53,8 +57,8 @@ public class TelaDisciplinas extends JFrame {
         panelHeaderDireito.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // lista de disciplinas
-        itemListPanel = new JPanel();
-        itemListPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        listaDisciplinasPanel = new JPanel();
+        listaDisciplinasPanel.setLayout(new WrapLayout());
 
         JButton btnAddDisciplina = new JButton("Adicionar");
         btnAddDisciplina.addActionListener(new ActionListener() {
@@ -67,14 +71,15 @@ public class TelaDisciplinas extends JFrame {
                 alunoGraduacao.getArvoreDoCurso().add(disciplina);
                 alunoGraduacao.adicionarDisciplina(disciplina);
 
-                itemListPanel.add(new DisciplinaCelula(disciplina));
+                listaDisciplinasPanel.add(new DisciplinaCelula(disciplina));
                 revalidate();
                 repaint();
             }
         });
 
-        
-        
+        listaDisciplinasScroll = new JScrollPane(listaDisciplinasPanel);
+        listaDisciplinasScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        listaDisciplinasScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         // Configurar Panels
         panelHeaderEsquerdo.add(lblTitulo);
@@ -83,7 +88,7 @@ public class TelaDisciplinas extends JFrame {
         panelHeader.add(panelHeaderDireito, BorderLayout.EAST);
 
         panel.add(panelHeader, BorderLayout.NORTH);
-        panel.add(itemListPanel, BorderLayout.CENTER);
+        panel.add(listaDisciplinasScroll, BorderLayout.CENTER);
         add(panel);
 
         // Centralizar o JFrame na tela
@@ -114,12 +119,41 @@ public class TelaDisciplinas extends JFrame {
             setOpaque(true);
 
             int padding = 10;
-            setBorder(new EmptyBorder(padding, padding, padding, padding));
+            Border paddingBorder = new EmptyBorder(padding, padding, padding, padding);
+            Border roundedBorder = new RoundBorder(15, Color.BLACK);
+            Border border = BorderFactory.createCompoundBorder(paddingBorder, roundedBorder);
+            setBorder(border);
 
             lblCodigo.setText(disciplina.getCodigo());
             lblProfessor.setText("Prof: " + disciplina.getProfessor().getNome());
             lblCreditos.setText(disciplina.getCreditos() + " créditos");
             lblFaltas.setText("Faltas: " + disciplina.getNumeroFaltas());
+        }
+
+        public class RoundBorder implements Border {
+            private int radius;
+            private Color color;
+
+            public RoundBorder(int radius, Color color) {
+                this.radius = radius;
+                this.color = color;
+            }
+
+            @Override
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                g.setColor(color);
+                g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+            }
+
+            @Override
+            public Insets getBorderInsets(Component c) {
+                return new Insets(radius, radius, radius, radius);
+            }
+
+            @Override
+            public boolean isBorderOpaque() {
+                return true;
+            }
         }
     }
 
