@@ -6,25 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 import modelos.AlunoGraduacao;
-import modelos.Curso;
-import modelos.Disciplina;
-import modelos.Endereco;
-import modelos.Genero;
 
 public class FileManager {
     public static String projetoPath = System.getProperty("user.dir");
     public static String alunoPath = "/src/dados/aluno.obj";
 
-    public static void salvarAluno(String nome, LocalDate dataNascimento, String rg, String cpf, String email,
-                                   String telefone, Genero genero, Endereco endereco, int ra, Curso curso,
-                                   int anoDeIngresso, ArrayList<Disciplina> arvoreDoCurso, ArrayList<Disciplina> gradeSemestral) {
+    public static void salvarAluno(AlunoGraduacao aluno) {
         // Criando um objeto da classe que você deseja salvar
-        AlunoGraduacao myObject = new AlunoGraduacao(nome, dataNascimento, rg, cpf, email, telefone, genero, endereco,
-                                                     ra, curso, anoDeIngresso, arvoreDoCurso, gradeSemestral);        
+        AlunoGraduacao myObject = aluno;
 
         // Construindo o caminho absoluto do arquivo
         String absoluteFilePath = projetoPath + File.separator + alunoPath;
