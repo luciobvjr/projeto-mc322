@@ -96,7 +96,7 @@ public class Validacao {
         }else{
             ver = 11 - ver;
         }
-        
+
         //Compara o dígito verificador calculado com o dado//
         if(ver == 10){
             if(allNum.charAt(8) != 'x')
