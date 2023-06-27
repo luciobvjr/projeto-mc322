@@ -165,7 +165,15 @@ public class TelaDisciplinas extends JFrame {
                     }
                 } else if (selectedButton.equals(btnConcluidas)) {
                     for (Disciplina disciplina : alunoGraduacao.getDisciplinasConcluidas()) {
-                        // listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
+                        ActionListener removerConcluida = new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                alunoGraduacao.getDisciplinasConcluidas().remove(disciplina);
+                                alunoGraduacao.getArvoreDoCurso().add(disciplina);
+                                FileManager.salvarAluno(alunoGraduacao);
+                            }
+                        };
+                        listaDisciplinasPanel.add(new CelulaDisciplinaConcluida(disciplina, removerConcluida));
                     }
                 }
                 revalidate();
