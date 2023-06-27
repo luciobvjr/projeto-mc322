@@ -138,6 +138,7 @@ public class TelaDisciplinas extends JFrame {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 alunoGraduacao.concluirDisciplina(disciplina);
+                                FileManager.salvarAluno(alunoGraduacao);
                             }
                         };
 
@@ -146,6 +147,7 @@ public class TelaDisciplinas extends JFrame {
                             public void actionPerformed(ActionEvent e) {
                                 alunoGraduacao.getDisciplinasMatriculadas().remove(disciplina);
                                 alunoGraduacao.getArvoreDoCurso().add(disciplina);
+                                FileManager.salvarAluno(alunoGraduacao);
                             }
                         };
 
