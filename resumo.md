@@ -29,7 +29,7 @@ Vários conceitos importantes de orientação a objetos foram utilizados no deco
 <p align = "justify">O sistema é controlado por uma interface gráfica, com uma tela de cadastro que é capaz de gravar em arquivo as informações imputadas, seguindo para uma tela de interação capaz de desenvolver as principais funções do planejador puxando informações de uma base de dados programada em forma de uma classe estática.
 
 4. Tratamento de exceções:
-<p align = "justify">
+<p align = "justify">Tratamos as exceções para todos os casos que os dados básicos das classes fossem inseridos pelos usuário de maneira incorreta, isto é, em um formato diferente do tipo declarado para o mesmo assim como a data com o formato válido para o tipo LocalDate ou até mesmo para uma quantidade de creditos permitidos que tenha sido inserida diferente do formato int (caso o usuário tenha digitado errado). Além disso, realizamos a tratativa das exceções para abertura de arquivos que podem não existir e também para acesso de indíces em que a memória não foi reservada para a estrutura de dados.
 
 </p>
 
