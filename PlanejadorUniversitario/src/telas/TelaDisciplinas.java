@@ -57,7 +57,40 @@ public class TelaDisciplinas extends JFrame {
         listaDisciplinasScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         for (Disciplina disciplina : alunoGraduacao.getDisciplinasMatriculadas()) {
-            listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
+            ActionListener addFalta = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int numeroFaltas = disciplina.getNumeroFaltas() + 1;
+                    disciplina.setNumeroFaltas(numeroFaltas);
+                    FileManager.salvarAluno(alunoGraduacao);
+                }
+            };
+
+            ActionListener removerFalta = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int numeroFaltas = disciplina.getNumeroFaltas() - 1;
+                    disciplina.setNumeroFaltas(numeroFaltas);
+                    FileManager.salvarAluno(alunoGraduacao);
+                }
+            };
+
+            ActionListener concluirDisciplina = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    alunoGraduacao.concluirDisciplina(disciplina);
+                }
+            };
+
+            ActionListener cancelarMatricula = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    alunoGraduacao.getDisciplinasMatriculadas().remove(disciplina);
+                    alunoGraduacao.getArvoreDoCurso().add(disciplina);
+                }
+            };
+
+            listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina, addFalta, removerFalta, concluirDisciplina, cancelarMatricula));
         }
 
         // Botões do segmented control
@@ -83,7 +116,40 @@ public class TelaDisciplinas extends JFrame {
                 JToggleButton selectedButton = (JToggleButton) e.getSource();
                 if (selectedButton.equals(btnMatriculadas)) {
                     for (Disciplina disciplina : alunoGraduacao.getDisciplinasMatriculadas()) {
-                        listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
+                        ActionListener addFalta = new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                int numeroFaltas = disciplina.getNumeroFaltas() + 1;
+                                disciplina.setNumeroFaltas(numeroFaltas);
+                                FileManager.salvarAluno(alunoGraduacao);
+                            }
+                        };
+
+                        ActionListener removerFalta = new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                int numeroFaltas = disciplina.getNumeroFaltas() - 1;
+                                disciplina.setNumeroFaltas(numeroFaltas);
+                                FileManager.salvarAluno(alunoGraduacao);
+                            }
+                        };
+
+                        ActionListener concluirDisciplina = new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                alunoGraduacao.concluirDisciplina(disciplina);
+                            }
+                        };
+
+                        ActionListener cancelarMatricula = new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                alunoGraduacao.getDisciplinasMatriculadas().remove(disciplina);
+                                alunoGraduacao.getArvoreDoCurso().add(disciplina);
+                            }
+                        };
+
+                        listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina, addFalta, removerFalta, concluirDisciplina, cancelarMatricula));
                     }
                 } else if (selectedButton.equals(btnDisponiveis)) {
                     for (Disciplina disciplina : alunoGraduacao.getArvoreDoCurso()) {
@@ -99,7 +165,7 @@ public class TelaDisciplinas extends JFrame {
                     }
                 } else if (selectedButton.equals(btnConcluidas)) {
                     for (Disciplina disciplina : alunoGraduacao.getDisciplinasConcluidas()) {
-                        listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
+                        // listaDisciplinasPanel.add(new CelulaDisciplinaMatriculada(disciplina));
                     }
                 }
                 revalidate();
